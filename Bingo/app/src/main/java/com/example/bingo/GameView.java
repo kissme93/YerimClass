@@ -39,6 +39,7 @@ public class GameView extends View {
     private NumberItem[][] mNumberArray;
 
     private Random mRandom;
+    private GameOverListener mGameOverListener;
 
     public GameView(Context context) {
         super(context);
@@ -130,6 +131,8 @@ public class GameView extends View {
             canvas.drawLine(100, i * 80 + 100, 500, i * 80 + 100, mPaint);
             canvas.drawLine(i * 80 + 100, 100, i * 80 + 100, 500, mPaint);
         }
+
+        int successCount = 0;
         for(int i = 0; i < 5;i ++) {
             if (mNumberArray[i][0].mSelect == true &&
                     mNumberArray[i][1].mSelect == true &&
@@ -137,6 +140,7 @@ public class GameView extends View {
                     mNumberArray[i][3].mSelect == true &&
                     mNumberArray[i][4].mSelect == true) {
                 canvas.drawLine(i * 80 + 100 + 40, 100, i * 80 + 100 + 40, 500, mRedPaint);
+                successCount ++;
             }
             if (mNumberArray[0][i].mSelect == true &&
                     mNumberArray[1][i].mSelect == true &&
@@ -144,6 +148,7 @@ public class GameView extends View {
                     mNumberArray[3][i].mSelect == true &&
                     mNumberArray[4][i].mSelect == true) {
                 canvas.drawLine(100, i * 80 + 100 + 40, 500, i * 80 + 100 + 40, mRedPaint);
+                successCount ++;
             }
         }
         if (mNumberArray[0][0].mSelect == true &&
@@ -152,6 +157,7 @@ public class GameView extends View {
                 mNumberArray[3][3].mSelect == true &&
                 mNumberArray[4][4].mSelect == true) {
             canvas.drawLine(100, 100, 500, 500, mRedPaint);
+            successCount ++;
         }
         if (mNumberArray[0][4].mSelect == true &&
                 mNumberArray[1][3].mSelect == true &&
@@ -159,9 +165,13 @@ public class GameView extends View {
                 mNumberArray[3][1].mSelect == true &&
                 mNumberArray[4][0].mSelect == true) {
             canvas.drawLine(500, 100, 100, 500, mRedPaint);
+            successCount ++;
         }
 
-
+        if(successCount >= 5) {
+            //GameOver
+            mGameOverListener.GameOver();
+        }
     }
 
     @Override
@@ -183,5 +193,9 @@ public class GameView extends View {
 
     public Point getLocation(int LocX, int LocY) {
         return new Point((LocX - 100)/80, (LocY -100)/80);
+    }
+
+    public void setOnGameOverListener(GameOverListener gameOverListener) {
+        mGameOverListener = gameOverListener;
     }
 }
