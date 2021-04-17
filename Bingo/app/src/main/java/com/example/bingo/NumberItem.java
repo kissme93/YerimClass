@@ -1,7 +1,7 @@
 package com.example.bingo;
 
 public class NumberItem {
-    private int         mNumber;
+    public int         mNumber;
     private boolean     mSelect;
 
     public NumberItem(int number) {
