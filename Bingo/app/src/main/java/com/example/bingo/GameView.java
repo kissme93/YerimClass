@@ -58,13 +58,14 @@ public class GameView extends View {
         mPaint = new Paint();
         mPaint.setARGB(255, 0, 0, 0);
         mPaint.setTextSize(60);
+        mPaint.setStrokeWidth(3);
 
         mNumberArray = new NumberItem[5][5];
 
         int count = 1;
         for(int i = 0; i < 5; i++) {
             for(int j = 0;j<5;j++) {
-                mNumberArray[i][j] = new NumberItem(count++);
+                mNumberArray[j][i] = new NumberItem(count++);
             }
         }
         display();
@@ -94,7 +95,7 @@ public class GameView extends View {
         for(int i = 0; i < 5; i++) {
             String strText = "";
             for(int j = 0;j<5;j++) {
-                strText += mNumberArray[i][j] + " ";
+                strText += mNumberArray[j][i] + " ";
             }
             Log.d("kihoon.kim", "v = " + strText);
         }
@@ -108,8 +109,15 @@ public class GameView extends View {
         for(int i = 0; i < 5; i++) {
             for(int j = 0;j<5;j++) {
                 String strText;
-                strText = String.format("%2d", mNumberArray[i][j].mNumber);
+                strText = String.format("%2d", mNumberArray[j][i].mNumber);
                 canvas.drawText(strText, j * 80 + 100, (i + 1) * 80 + 80, mPaint);
+
+                // X 표시
+                if (mNumberArray[j][i].mSelect) {
+                    canvas.drawLine( (j) * 80 + 100, (i + 1) * 80 + 100, (j + 1) * 80 + 100, (i) * 80 + 100, mPaint);
+                    canvas.drawLine( (j) * 80 + 100, (i) * 80 + 100, (j+1) * 80 + 100, (i + 1) * 80 + 100, mPaint);
+                }
+
             }
         }
 
@@ -129,6 +137,9 @@ public class GameView extends View {
             int x = (int)event.getX();
             int y = (int)event.getY();
             Log.d("kihoon.kim", "" + getLocation(x, y));
+            Point clickedPoint = getLocation(x, y);
+            mNumberArray[clickedPoint.x][clickedPoint.y].mSelect = true;
+            invalidate();
         }
 
         return super.onTouchEvent(event);

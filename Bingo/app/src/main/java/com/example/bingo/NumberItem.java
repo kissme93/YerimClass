@@ -2,7 +2,7 @@ package com.example.bingo;
 
 public class NumberItem {
     public int         mNumber;
-    private boolean     mSelect;
+    public boolean     mSelect;
 
     public NumberItem(int number) {
 
