@@ -34,6 +34,7 @@ public class GameView extends View {
     };
 
     private Paint mPaint;
+    private Paint mRedPaint;
 
     private NumberItem[][] mNumberArray;
 
@@ -59,6 +60,10 @@ public class GameView extends View {
         mPaint.setARGB(255, 0, 0, 0);
         mPaint.setTextSize(60);
         mPaint.setStrokeWidth(3);
+
+        mRedPaint = new Paint();
+        mRedPaint.setARGB(255, 255, 0, 0);
+        mRedPaint.setStrokeWidth(5);
 
         mNumberArray = new NumberItem[5][5];
 
@@ -125,6 +130,37 @@ public class GameView extends View {
             canvas.drawLine(100, i * 80 + 100, 500, i * 80 + 100, mPaint);
             canvas.drawLine(i * 80 + 100, 100, i * 80 + 100, 500, mPaint);
         }
+        for(int i = 0; i < 5;i ++) {
+            if (mNumberArray[i][0].mSelect == true &&
+                    mNumberArray[i][1].mSelect == true &&
+                    mNumberArray[i][2].mSelect == true &&
+                    mNumberArray[i][3].mSelect == true &&
+                    mNumberArray[i][4].mSelect == true) {
+                canvas.drawLine(i * 80 + 100 + 40, 100, i * 80 + 100 + 40, 500, mRedPaint);
+            }
+            if (mNumberArray[0][i].mSelect == true &&
+                    mNumberArray[1][i].mSelect == true &&
+                    mNumberArray[2][i].mSelect == true &&
+                    mNumberArray[3][i].mSelect == true &&
+                    mNumberArray[4][i].mSelect == true) {
+                canvas.drawLine(100, i * 80 + 100 + 40, 500, i * 80 + 100 + 40, mRedPaint);
+            }
+        }
+        if (mNumberArray[0][0].mSelect == true &&
+                mNumberArray[1][1].mSelect == true &&
+                mNumberArray[2][2].mSelect == true &&
+                mNumberArray[3][3].mSelect == true &&
+                mNumberArray[4][4].mSelect == true) {
+            canvas.drawLine(100, 100, 500, 500, mRedPaint);
+        }
+        if (mNumberArray[0][4].mSelect == true &&
+                mNumberArray[1][3].mSelect == true &&
+                mNumberArray[2][2].mSelect == true &&
+                mNumberArray[3][1].mSelect == true &&
+                mNumberArray[4][0].mSelect == true) {
+            canvas.drawLine(500, 100, 100, 500, mRedPaint);
+        }
+
 
     }
 
