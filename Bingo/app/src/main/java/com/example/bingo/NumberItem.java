@@ -9,4 +9,13 @@ public class NumberItem {
         mNumber = number;
         mSelect = false;
     }
+
+    @Override
+    public String toString() {
+//        return "NumberItem{" +
+//                "mNumber=" + mNumber +
+//                ", mSelect=" + mSelect +
+//                '}';
+        return ""+mNumber;
+    }
 }
